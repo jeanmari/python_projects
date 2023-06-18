@@ -20,36 +20,51 @@ months_dict = {
     11: 'November',
     12: 'December',
 }
-
+gathered_months_dict = {}
 threshold_per_month = 3
-events_over_threshold = []
-object_ctr = 0
+events_over_threshold = {}
 
-#get the earliest and latest date
+
 df['date'] = pd.to_datetime(df['date'])
-date_column_formatted = df['date'].dt.strftime('%m/%d/%Y')
-date_column_formatted = pd.to_datetime(date_column_formatted)
+date_column_formatted = pd.to_datetime(df['date'])
 months = date_column_formatted.dt.month
 unique_months = months.unique()
-for row in months:
-    print(row)
+unique_months = unique_months.tolist()
 
-exit()
+def init_months():
+    for month in unique_months:
+        gathered_months_dict[months_dict[month]] = 0
+    return gathered_months_dict
+
 
 #get unique critical objects
 critical_objects = df["file_name"].unique()
 critical_objects = critical_objects.tolist()
+critical_objects = ["AugueAliquamErat.mov", "IdTurpisInteger.pdf"]
 
-# for idx, critical_object in critical_objects:
-#     events_over_threshold.append(critical_object)
-#     events_over_threshold[idx].append()
-#     for index, row in df.iterrows():
-#         if critical_object == row["file_name"]:
-#             row['date'] = pd.to_datetime(row['date'])
-#             unique_month = row['date'].dt.month
-#             events_over_threshold[idx].append({})
-    # if object_ctr > threshold_per_month:
-    #     events_over_threshold.append(critical_object)
+
+#loop thru critical object and match it with file name in excel if it matches, then iterate the number of the specified month
+for idx, critical_object in enumerate(critical_objects):
+    events_over_threshold[critical_object] = init_months()
+    for index, row in df.iterrows():
+        #if crit object is the same as file name, then iterate the month
+        
+        if critical_object == row["file_name"]:
+            #get the month of that critical object
+            month = row["date"].month
+            #iterate the month in the dictionary
+            events_over_threshold[critical_object][months_dict[month]] += 1
+            
+    # if idx == len(critical_objects):
+    #     # print(critical_object) 
+    #     break
+    
+
+# print(events_over_threshold["AugueAliquamErat.mov"])    
+# for key, value in events_over_threshold.items():
+#     print(f"critical_objects: {key}, \nValue: {value}\n\n")
+events_over_threshold["IdTurpisInteger.pdf"] = {"January": 34, "February": 55, "March": 87}
+print(events_over_threshold)
 
 # print(len(events_over_threshold))
 
