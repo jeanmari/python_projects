@@ -1,0 +1,59 @@
+{% extends "master.html" %}
+
+{% block content %}
+    <div class="container" style="padding-top:20px">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Update task</h5>
+                    <hr>
+                        <form action="/update/" method="POST">
+                            <input type="hidden" name="_method" value="PATCH">
+                            <input type="hidden" name="id" value="{{ task[0][0] }}">
+                            <div class="mb-2">
+                                <label for="" class="form-label">Short Description:</label>
+                                <input type="text" name="short_desc" id="" class="form-control" value="{{ task[0][1] }}">
+                            </div>
+                            <div class="mb-2">
+                                <label for="" class="form-label">Description:</label>
+                                <textarea name="desc" id="" class="form-control">{{ task[0][2] }}</textarea>
+                            </div>
+
+                            <div class="mb-3">
+                                
+                                <div class="form-check">
+                                    {% if task[0][3] %}
+                                        <input class="form-check-input" type="radio" name="completed" id="flexRadioDefault1" checked value="1">
+                                    {% else %}
+                                        <input class="form-check-input" type="radio" name="completed" id="flexRadioDefault1" value="1">
+                                    {% endif %}
+                                    
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        <span style="font-weight: bold; color: green">Completed</span>
+                                    </label>
+
+                                </div>
+                                    <div class="form-check">
+                                        {% if task[0][3] == 0 %}
+                                            <input class="form-check-input" type="radio" name="completed" id="flexRadioDefault2" checked  value="0">
+                                        {% else %}
+                                            <input class="form-check-input" type="radio" name="completed" id="flexRadioDefault2" value="0">
+                                        {% endif %}
+                                    
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        <span style="font-weight: bold; color: red">Incomplete</span>
+                                    </label>
+                                </div>
+                                
+                            </div>
+                            
+                            <input type="submit" value="Update" class="btn btn-primary">
+                            <a href="/" class="btn btn-secondary">Go back</a>
+                        </form>
+                        
+                            
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

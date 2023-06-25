@@ -1,0 +1,31 @@
+{% extends "master.html" %}
+
+{% block content %}
+
+    <div class="container" style="padding-top:20px">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Create new task</h5>
+                    <hr>
+
+                        <form action="/create/post" method="post">
+                            <div class="mb-2">
+                                <label for="" class="form-label">Short Description:</label>
+                                <input type="text" name="short_desc" id="" class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <label for="" class="form-label">Description:</label>
+                                <textarea name="desc" id="" class="form-control"></textarea>
+                            </div>
+                            <input type="submit" value="Save" class="btn btn-primary">
+                            <a href="/" class="btn btn-secondary">Go back</a>
+                        </form>
+                        
+                            
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
